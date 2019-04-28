@@ -10,12 +10,32 @@ public class MocksData {
 	
 	public MocksData() {
 		this.membership = new ArrayList<InfoPattern>(); 
-		this.membership.add(new InfoPattern(1, "Nguyen Hai Long", "emailGoogle@gmail.com", "0912345678", 1000, true)) ; 
-		this.membership.add(new InfoPattern(2, "Nguyen Tat Dat" , "emailMicrosoft@microF.com", "081234567", 2000, true)) ; 
-		this.membership.add(new InfoPattern(3, "Tran Manh Hieu" , "emailAmazone@Amaz.com", "071234567", 3000, false)) ;
-		this.membership.add(new InfoPattern(4, "Nguyen Do Duong" , "emailSpaceX@spaceX.com", "061234567", 4000, false)) ;
+		this.membership.add(new InfoPattern(1, "Nguyen Hai Long", "emailGoogle@gmail.com", "0912345678", 1000)) ; 
+		this.membership.add(new InfoPattern(2, "Nguyen Tat Dat" , "emailMicrosoft@microF.com", "081234567", 2000)) ; 
+		this.membership.add(new InfoPattern(3, "Tran Manh Hieu" , "emailAmazone@Amaz.com", "071234567", 3000)) ;
+		this.membership.add(new InfoPattern(4, "Nguyen Do Duong" , "emailSpaceX@spaceX.com", "061234567", 4000)) ;
 		this.RecentID = 4 ; 
 	} 
+	
+	public boolean DeleteData (int id) {
+		for (InfoPattern temp : this.membership) if (temp.getID() == id) {
+			membership.remove(temp) ; 
+			return true ; 
+		}
+		return false ; 
+	}
+	
+	public boolean Edit (int id, String name , String email , String phone , int balance){
+		for (InfoPattern temp : this.membership) if (temp.getID() == id) {
+			temp.setName(name) ;
+			temp.setEmail(email);
+			temp.setBalance(balance) ;
+			temp.setPhone(phone) ;
+			return true ; 
+		}
+		
+		return false ; 
+	}
 	
 	public boolean TransferMoney (int FromID , int ToID , int money) {
 		if (FromID > this.RecentID || FromID <= 0 || ToID > this.RecentID || ToID < 0) return false ; 
@@ -41,24 +61,24 @@ public class MocksData {
 	}
 	
 	public InfoPattern getUser(int ID) {
-		InfoPattern Result = new InfoPattern(0 , "" , "" , "" , 0 , false) ;  
+		InfoPattern Result = new InfoPattern(0 , "" , "" , "" , 0) ;  
 		for (InfoPattern temp : this.membership) {
 			if (temp.getID() == ID) Result = temp ;  
 		}
 		return Result ; 
 	}
 	
-	public void AddNewMember(String name , String email , String phone , int balance , boolean status) {
+	public void AddNewMember(String name , String email , String phone , int balance) {
 		this.RecentID ++ ; 
-		membership.add(new InfoPattern(this.RecentID, name, email, phone, balance, status)) ; 
+		membership.add(new InfoPattern(this.RecentID, name, email, phone, balance)) ; 
 	}
-	
-	public void RemoveMembre(int ID) {
-		for (int i = 0; i < membership.size(); i++) if (this.membership.get(i).getID() == ID) {
-			InfoPattern NeedRemove = membership.get(i) ; 
-			membership.remove(NeedRemove) ;
-		}
-	}
+//	
+//	public void RemoveMember(int ID) {
+//		for (int i = 0; i < membership.size(); i++) if (this.membership.get(i).getID() == ID) {
+//			InfoPattern NeedRemove = membership.get(i) ; 
+//			membership.remove(NeedRemove) ;
+//		}
+//	}
 
 	public List<InfoPattern> getMembership() {
 		return membership;

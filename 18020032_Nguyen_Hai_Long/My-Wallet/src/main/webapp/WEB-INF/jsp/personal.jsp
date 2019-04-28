@@ -13,7 +13,7 @@
 	<div class="container bg-info " style="width : 40% ; padding : 1.5rem ; ">  
 	<h1 class="container" style="text-align: center ; color:white; " > User's Information</h1>
 	<ul class="list-group" style="margin : 1rem ; ">
-		<li class="list-group-item"> Name : ${name} </li>
+		<li class="list-group-item" style="font-size : 1rem"> Name : ${name} </li>
 		<li class="list-group-item"> Email : ${email} </li>
 		<li class="list-group-item"> Phone : ${phone} </li>
 		<li class="list-group-item"> Balance : ${balance} </li>
