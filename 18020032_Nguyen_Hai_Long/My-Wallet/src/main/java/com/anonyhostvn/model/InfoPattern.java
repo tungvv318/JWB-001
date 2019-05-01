@@ -6,16 +6,14 @@ public class InfoPattern {
 	private String email ; 
 	private String phone ; 
 	private int balance ;
-	private boolean status ;
 	private String password ; 
 	
-	public InfoPattern (int ID , String name , String email , String phone , int balance , boolean status) {
+	public InfoPattern (int ID , String name , String email , String phone , int balance) {
 		this.ID = ID ; 
 		this.name = name; 
 		this.email = email ; 
 		this.phone = phone ; 
 		this.balance = balance ; 
-		this.status = status ; 
 		
 		this.password = "123456" ; 
 	}
@@ -37,12 +35,7 @@ public class InfoPattern {
 	public void setID(int iD) {
 		ID = iD;
 	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+
 	public int getBalance() {
 		return balance;
 	}

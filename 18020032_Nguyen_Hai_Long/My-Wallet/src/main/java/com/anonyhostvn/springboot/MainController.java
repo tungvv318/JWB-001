@@ -45,7 +45,7 @@ public class MainController {
 							  @RequestParam("phone") String phone ,
 							  @RequestParam("email") String email , 
 							  @RequestParam("balance") String balance) { 
-		Data.AddNewMember(username, email, phone, Integer.parseInt(balance) , false) ;
+		Data.AddNewMember(username, email, phone, Integer.parseInt(balance)) ;
 		return "registerSuccess" ; 
 	}
 	
@@ -104,5 +104,38 @@ public class MainController {
 		}
 		
 		return "TransferStatus" ; 
+	}
+	
+	@PostMapping("/delete")
+	public String Delete (@RequestParam("ID") int id) {
+		if (this.IDLogined == id) this.IDLogined = 0 ; 
+		if (Data.DeleteData(id)) return "Success" ;
+		return "Failed" ;
+	}
+	
+	@RequestMapping("/edit")
+	public String EditProfile (@RequestParam("ID") int id , 
+							   Model model) {
+		
+		//if (id != this.IDLogined) return "Failed" ;
+		InfoPattern RecentUser = Data.getUser(id) ; 
+		model.addAttribute("ID",RecentUser.getID()) ; 
+		model.addAttribute("name", RecentUser.getName()) ;
+		model.addAttribute("email", RecentUser.getEmail()) ; 
+		model.addAttribute("phone", RecentUser.getPhone()) ;
+		model.addAttribute("balance", RecentUser.getBalance()) ;
+		model.addAttribute("ID", RecentUser.getID()) ; 
+		
+		return "EditProfile" ;
+	}
+	
+	@PostMapping("/edit")
+	public String EditSaving (@RequestParam("name") String name , 
+							  @RequestParam("phone") String phone ,
+							  @RequestParam("email") String email , 
+							  @RequestParam("balance") int balance,
+							  @RequestParam("ID") int id) { 
+		if (this.Data.Edit(id, name.trim(), email.trim(), phone.trim(), balance)) return "redirect:/page1" ; 
+		return "Failed" ; 
 	}
 }

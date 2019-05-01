@@ -20,7 +20,7 @@
 	 	 	
 	 	 <div class="form-group">
 	 	 <label for="email-input" style="color : white ; "> Email address : </label> 
-	 	 <input type="email" name="email" placeholder="Enter email"/>
+	 	 <input type="email" class="form-control" name="email" placeholder="Enter email"/>
 	 	 </div>
 	 	  
 	 	 <div class="form-group">	 	 
