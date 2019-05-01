@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <title>HTML Tutorial</title>
+<link href="main.css" rel="stylesheet">
 <body>
 
 <h1>Hello world!</h1>
