@@ -30,15 +30,24 @@ public class SystemController {
 		return "redirect:/";
 	}
 
-	@GetMapping(value = "/sua-thong-tin/{key}")
-	public String formUpdateGet(@PathVariable("key") int key, Model model){
+
+	@GetMapping(value = "/xoa-nguoi-dung")
+	public String removeUser(@RequestParam("id") int id ){
+		System.out.println("Remove id " +id);
+		items.remove(id);
+		return "redirect:/";
+	}
+	@GetMapping(value = "/sua-thong-tin")
+	public String formUpdateGet(@RequestParam("id") int key, Model model){
 		model.addAttribute("key", key);
 		model.addAttribute("items", items);
+		System.out.println("Sua id " + key);
 		return "suaThongTin";
 	}
-	@PostMapping(value = "/sua-thong-tin/{key}")
-	public String formUpdatePost(@PathVariable("key") int key, @RequestParam String name, @RequestParam String email,
-	                       @RequestParam String phone, @RequestParam int balance){
+	@PostMapping(value = "/xu-li-form-sua-thong-tin/{key}")
+	public String formUpdatePost( @PathVariable("key") int key,@RequestParam String name,
+	                              @RequestParam String email, @RequestParam String phone,
+	                              @RequestParam int balance){
 
 		items.get(key).setName(name);
 		items.get(key).setPhone(phone);
@@ -57,7 +66,7 @@ public class SystemController {
 		return "thongTinTK";
 	}
 	@PostMapping(value = "/xu-li-dang-nhap")
-	public String xuLiDangNhap(@RequestParam String email, @RequestParam String password, Model model){
+	public String xuLiDangNhap(@RequestParam String email, @RequestParam String password){
 		String defaultPassword = "123456";
 		for(int i : items.keySet()){
 			if(items.get(i).getEmail().equals(email) && password.equals(defaultPassword)){
@@ -91,7 +100,6 @@ public class SystemController {
 		}
 		return "thongBao/idNotFound";
 	}
-
 
 
 }
