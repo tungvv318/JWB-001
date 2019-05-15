@@ -10,10 +10,11 @@
 <title>My Wallet - Trang chủ </title>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
 <link href="${mainCss}" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="webjars/bootstrap/3.4.1/css/bootstrap.min.css"
+      rel="stylesheet">
 </head>
 <body>
-<div class="header">
+<div class="page-header">
 	<h1>MY WALLET</h1>
 	<ul>
 		<li><a href="/">Trang chủ </a></li>
@@ -24,13 +25,9 @@
 
 <div class="home">
 	<h3>Danh sách người dùng </h3>
-		<div class="search-container">
-			<form action="/" class="search">
-				<input type="text" placeholder="Search.." name="search">
-				<input type="submit" value="Tìm kiếm " style="width: auto" >
-			</form>
-		</div>
-	<table id="customers">
+	<p class="col-md-9"></p>
+	<input type="text" id="myInput" placeholder="Tìm kiếm..." class="searchbar col-md-3">
+	<table class="table table-hover" id="customers">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -41,13 +38,13 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="myTable">
 		
 			<%
 				HashMap<Integer, User> results = (HashMap<Integer, User>) request.getAttribute("items");
 				for(int key : results.keySet()) {
 			%>
-			<tr>
+			<tr id="<%=results.get(key).getId()%>">
 				<td style="text-align: center"><%=results.get(key).getId()%>
 				</td>
 				<td><%=results.get(key).getName()%>
@@ -58,18 +55,61 @@
 				</td>
 				<td style="text-align: right"><%=results.get(key).getBalance()%>
 				</td>
-				<td><a href="/sua-thong-tin/<%=results.get(key).getId()%>">Edit</a>
-					<button type="button" class="btn btn-danger">Xóa </button>
+				<td>
+					<button class="btn btn-primary" onclick="editUser(<%=results.get(key).getId()%>)">Sửa </button>
+					<button class="btn btn-danger" onclick="removeUser(<%=results.get(key).getId()%>)">Xóa </button>
 				</td>
 			</tr>
 			<%
 				}
 			%>
-			
+
 		</tbody>
 	</table>
+	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(function () {
+		    // Tim kiem nguoi dung.
+			$("#myInput").on("keyup", function () {
+				var value = $(this).val().toLowerCase();
+				$("#myTable tr").filter(function () {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+		function editUser(id) {
+			$.ajax({
+				url: "/sua-thong-tin",
+				data:{
+				    id:id
+				},
+				success:function () {
+				    window.location = "/sua-thong-tin?id=" + id;
+
+                }
+			})
+
+        }
+        function removeUser(id) {
+	        if (!confirm("Bạn muốn xóa người dùng có mã ID: " + id +"?")) return ;
+            $.ajax({
+                url: "/xoa-nguoi-dung",
+                data:{
+                    id:id
+                },
+                success:function () {
+					$("#"+id).remove();
+                }
+            })
+            alert("Xóa thành công người dùng có ID: " + id );
+        }
+
+
+	</script>
+
 </div>
+<div class="panel-footer">
 
-
+</div>
 </body>
 </html>

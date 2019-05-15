@@ -10,6 +10,8 @@
 <title>My Wallet - Giao dịch </title>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
 <link href="${mainCss}" rel="stylesheet"/>
+<link href="webjars/bootstrap/3.4.1/css/bootstrap.min.css"
+      rel="stylesheet">
 </head>
 <body>
 <div class="header">
